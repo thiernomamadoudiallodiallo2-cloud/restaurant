@@ -1,0 +1,2097 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thierno Gourmand - Restaurant à Mbour</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        /* RESET ET STYLES DE BASE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #d35400;
+            --secondary-color: #27ae60;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --text-color: #333;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        h1, h2, h3, h4 {
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        h1 {
+            font-size: 3rem;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #e67e22;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #2ecc71;
+        }
+        
+        .btn-payment {
+            background-color: #6f42c1;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        .btn-orange {
+            background-color: #ff6600;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        /* HEADER ET NAVIGATION */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        
+        /* HERO SECTION */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-top: 70px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        /* À PROPOS SECTION */
+        .about {
+            background-color: white;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* MENU SECTION */
+        .menu {
+            background-color: var(--light-color);
+        }
+        
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .category-btn.active {
+            border-bottom: 3px solid var(--primary-color);
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .menu-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+            position: relative;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .menu-item-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .menu-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .menu-item:hover .menu-item-image img {
+            transform: scale(1.1);
+        }
+        
+        .menu-item-content {
+            padding: 20px;
+        }
+        
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .menu-item-title {
+            font-size: 1.3rem;
+            color: var(--dark-color);
+        }
+        
+        .menu-item-price {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        .add-to-cart {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #2ecc71;
+        }
+        
+        /* PANIER */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 350px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 2000;
+            transition: right 0.3s ease;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .cart-sidebar.active {
+            right: 0;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .cart-items {
+            margin-bottom: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-info {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-weight: bold;
+        }
+        
+        .cart-item-price {
+            color: var(--primary-color);
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+        
+        .quantity-btn {
+            background-color: #f1f1f1;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .quantity-value {
+            margin: 0 10px;
+        }
+        
+        .remove-item {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        .cart-total {
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .cart-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .cart-btn {
+            width: 100%;
+        }
+        
+        .cart-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #e74c3c;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        /* GALERIE SECTION */
+        .gallery {
+            background-color: white;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .gallery-item {
+            height: 200px;
+            overflow: hidden;
+            border-radius: 5px;
+            position: relative;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        /* CONTACT SECTION */
+        .contact {
+            background-color: var(--light-color);
+        }
+        
+        .contact-container {
+            display: flex;
+            gap: 50px;
+        }
+        
+        .contact-info, .contact-form {
+            flex: 1;
+        }
+        
+        .contact-details {
+            margin-bottom: 30px;
+        }
+        
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .contact-detail i {
+            margin-right: 15px;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        /* QR CODE SECTION */
+        .qr-section {
+            background-color: white;
+            text-align: center;
+            padding: 60px 0;
+        }
+        
+        .qr-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: white;
+            margin: 0 10px;
+        }
+        
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .payment-method {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .payment-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .wave {
+            background-color: #6f42c1;
+        }
+        
+        .orange-money {
+            background-color: #ff6600;
+        }
+        
+        .qr-codes-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .qr-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 250px;
+        }
+        
+        .qr-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        /* FOOTER */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+        
+        /* MODAL POUR COMMANDE */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .order-type-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .order-type-btn {
+            flex: 1;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .order-type-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .order-summary {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* MODAL DE PAIEMENT */
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .payment-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-option:hover {
+            border-color: var(--primary-color);
+        }
+        
+        .payment-option.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(211, 84, 0, 0.05);
+        }
+        
+        .payment-icon-modal {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            color: white;
+            margin-right: 15px;
+        }
+        
+        .payment-form {
+            margin-top: 20px;
+        }
+        
+        .payment-step {
+            display: none;
+        }
+        
+        .payment-step.active {
+            display: block;
+        }
+        
+        /* MODAL DE CONFIRMATION */
+        .confirmation-modal {
+            text-align: center;
+        }
+        
+        .confirmation-icon {
+            font-size: 4rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            .cart-sidebar {
+                width: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 50px;
+                transition: left 0.3s;
+            }
+            
+            nav ul.active {
+                left: 0;
+            }
+            
+            nav ul li {
+                margin: 15px 0;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .qr-codes-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">Thierno <span>Gourmand</span></div>
+            <div class="menu-toggle">☰</div>
+            <nav>
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#apropos">À propos</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#galerie">Galerie</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#" class="btn btn-secondary" id="order-btn">Commander</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="accueil">
+        <div class="container hero-content">
+            <h1>Découvrez la saveur authentique de Mbour</h1>
+            <p>Une expérience culinaire unique mêlant traditions sénégalaises et créativité moderne</p>
+            <a href="#menu" class="btn">Voir notre menu</a>
+            <a href="#" class="btn btn-secondary" id="hero-order-btn">Commander en ligne</a>
+        </div>
+    </section>
+
+    <!-- À PROPOS SECTION -->
+    <section class="about" id="apropos">
+        <div class="container">
+            <h2>À propos de nous</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Notre histoire</h3>
+                    <p>Fondé en 2015, Thierno Gourmand est rapidement devenu une référence gastronomique à Mbour. Notre restaurant incarne l'authenticité des saveurs sénégalaises revisitées avec une touche moderne.</p>
+                    <p>Notre chef, Thierno Mamadou Diallo, formé aux meilleures techniques culinaires, sélectionne personnellement les produits locaux pour garantir fraîcheur et qualité dans chaque plat.</p>
+                    <p>Nous nous engageons à soutenir les producteurs locaux et à promouvoir la richesse culinaire de notre région.</p>
+                    <a href="#contact" class="btn">En savoir plus</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Intérieur du restaurant">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU SECTION -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <h2>Notre Menu</h2>
+            <div class="menu-categories">
+                <button class="category-btn active" data-category="entrees">Entrées</button>
+                <button class="category-btn" data-category="plats">Plats principaux</button>
+                <button class="category-btn" data-category="desserts">Desserts</button>
+                <button class="category-btn" data-category="boissons">Boissons</button>
+            </div>
+            <div class="menu-items" id="menu-items-container">
+                <!-- Les éléments du menu seront générés par JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERIE SECTION -->
+    <section class="gallery" id="galerie">
+        <div class="container">
+            <h2>Notre Galerie</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Plat 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Plat 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Plat 3">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Plat 4">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Plat 5">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Plat 6">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QR CODE SECTION -->
+    <section class="qr-section">
+        <div class="container">
+            <h2>Paiement Rapide par QR Code</h2>
+            <p>Scannez nos codes QR pour payer rapidement avec Wave ou Orange Money</p>
+            
+            <div class="qr-codes-container">
+                <div class="qr-card">
+                    <h3>Paiement Wave</h3>
+                    <div class="qr-code">
+                        <canvas id="wave-qr-code"></canvas>
+                    </div>
+                    <p>Scannez pour payer avec Wave</p>
+                    <div class="payment-method">
+                        <div class="payment-icon wave">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <span>Wave: 77 689 03 21</span>
+                    </div>
+                </div>
+                
+                <div class="qr-card">
+                    <h3>Paiement Orange Money</h3>
+                    <div class="qr-code">
+                        <canvas id="orange-money-qr-code"></canvas>
+                    </div>
+                    <p>Scannez pour payer avec Orange Money</p>
+                    <div class="payment-method">
+                        <div class="payment-icon orange-money">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <span>Orange Money: 77 689 03 21</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="qr-container">
+                <h3>Code QR du Restaurant</h3>
+                <div class="qr-code">
+                    <canvas id="restaurant-qr-code"></canvas>
+                </div>
+                <p>Scannez pour accéder à notre site web</p>
+                <p>Spécialités: Thiébou Dieune, Poulet Yassa, Mafé, Thiakry</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Contactez-nous</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Informations de contact</h3>
+                    <div class="contact-details">
+                        <div class="contact-detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <p>MBOUR1 près du stade Lat Dior, Mbour, Sénégal</p>
+                        </div>
+                        <div class="contact-detail">
+                            <i class="fas fa-phone"></i>
+                            <p>77 689 03 21</p>
+                        </div>
+                        <div class="contact-detail">
+                            <i class="fas fa-envelope"></i>
+                            <p>thiernomamadoudiallodiallo2@gmail.com</p>
+                        </div>
+                        <div class="contact-detail">
+                            <i class="fas fa-clock"></i>
+                            <p>Lundi - Dimanche: 11h00 - 23h00</p>
+                        </div>
+                    </div>
+                    <h3>Suivez-nous sur les réseaux sociaux</h3>
+                    <div class="social-links">
+                        <a href="https://tiktok.com/@campagne00321" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://instagram.com/aladji622" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Envoyez-nous un message</h3>
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Nom complet</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Sujet</label>
+                            <input type="text" id="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Envoyer le message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Thierno Gourmand</h3>
+                    <p>Restaurant gastronomique à Mbour, proposant une cuisine sénégalaise authentique et créative.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Liens rapides</h3>
+                    <ul class="footer-links">
+                        <li><a href="#accueil">Accueil</a></li>
+                        <li><a href="#apropos">À propos</a></li>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#galerie">Galerie</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Heures d'ouverture</h3>
+                    <p>Lundi - Dimanche: 11h00 - 23h00</p>
+                    <p>Service continu</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Réseaux sociaux</h3>
+                    <div class="social-links">
+                        <a href="https://tiktok.com/@campagne00321" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://instagram.com/aladji622" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Thierno Gourmand. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PANIER -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Votre Panier</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Les éléments du panier seront générés par JavaScript -->
+        </div>
+        <div class="cart-total" id="cart-total">
+            Total: 0 FCFA
+        </div>
+        <div class="cart-actions">
+            <button class="btn cart-btn" id="checkout-btn">Passer la commande</button>
+            <button class="btn btn-secondary cart-btn" id="continue-shopping">Continuer mes achats</button>
+        </div>
+    </div>
+
+    <!-- ICONE PANIER -->
+    <div class="cart-icon" id="cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+        <div class="cart-count" id="cart-count">0</div>
+    </div>
+
+    <!-- MODAL DE COMMANDE -->
+    <div class="modal" id="order-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Passer votre commande</h2>
+            <div class="order-type-buttons">
+                <button class="order-type-btn active" data-type="delivery">Livraison</button>
+                <button class="order-type-btn" data-type="pickup">À emporter</button>
+            </div>
+            
+            <div class="order-summary" id="order-summary">
+                <!-- Récapitulatif de la commande -->
+            </div>
+            
+            <form id="order-form">
+                <div class="form-group">
+                    <label for="order-name">Nom complet *</label>
+                    <input type="text" id="order-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="order-phone">Téléphone *</label>
+                    <input type="tel" id="order-phone" required>
+                </div>
+                <div class="form-group" id="address-field">
+                    <label for="order-address">Adresse de livraison *</label>
+                    <input type="text" id="order-address" required>
+                </div>
+                <div class="form-group">
+                    <label for="order-time">Heure de livraison/retrait *</label>
+                    <input type="time" id="order-time" required>
+                </div>
+                <div class="form-group">
+                    <label for="order-notes">Notes supplémentaires (optionnel)</label>
+                    <textarea id="order-notes"></textarea>
+                </div>
+                <div class="cart-total" id="order-total">
+                    Total: 0 FCFA
+                </div>
+                <button type="button" class="btn" id="proceed-to-payment">Procéder au paiement</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE PAIEMENT -->
+    <div class="modal" id="payment-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Paiement de votre commande</h2>
+            
+            <div class="order-summary" id="payment-summary">
+                <!-- Récapitulatif de la commande pour le paiement -->
+            </div>
+            
+            <div class="payment-step active" id="payment-method-step">
+                <h3>Choisissez votre mode de paiement</h3>
+                <div class="payment-options">
+                    <div class="payment-option" data-method="wave">
+                        <div class="payment-icon-modal wave">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div>
+                            <h4>Wave</h4>
+                            <p>Paiement mobile via l'application Wave</p>
+                        </div>
+                    </div>
+                    <div class="payment-option" data-method="orange-money">
+                        <div class="payment-icon-modal orange-money">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Orange Money</h4>
+                            <p>Paiement mobile via Orange Money</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn" id="confirm-payment-method" disabled>Confirmer le mode de paiement</button>
+            </div>
+            
+            <div class="payment-step" id="payment-details-step">
+                <h3 id="payment-method-title">Détails du paiement</h3>
+                <div class="qr-codes-container">
+                    <div class="qr-card">
+                        <h4>Scannez pour payer avec Wave</h4>
+                        <div class="qr-code">
+                            <canvas id="wave-payment-qr"></canvas>
+                        </div>
+                        <p>Ou envoyez le montant au: 77 689 03 21</p>
+                    </div>
+                    
+                    <div class="qr-card">
+                        <h4>Scannez pour payer avec Orange Money</h4>
+                        <div class="qr-code">
+                            <canvas id="orange-payment-qr"></canvas>
+                        </div>
+                        <p>Ou envoyez le montant au: 77 689 03 21</p>
+                    </div>
+                </div>
+                
+                <form id="payment-form">
+                    <div class="form-group">
+                        <label for="payment-phone">Numéro de téléphone *</label>
+                        <input type="tel" id="payment-phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="payment-code">Code de transaction (optionnel)</label>
+                        <input type="text" id="payment-code" placeholder="Si vous avez un code de transaction">
+                    </div>
+                    <div class="cart-total" id="payment-total">
+                        Total: 0 FCFA
+                    </div>
+                    <button type="submit" class="btn" id="confirm-payment">Confirmer le paiement</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE CONFIRMATION -->
+    <div class="modal confirmation-modal" id="confirmation-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="confirmation-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Commande confirmée!</h2>
+            <p id="confirmation-message">Votre commande a été enregistrée avec succès.</p>
+            <p id="payment-confirmation-message"></p>
+            <p>Nous vous contacterons dans les plus brefs délais.</p>
+            <button class="btn" id="new-order-btn">Nouvelle commande</button>
+        </div>
+    </div>
+
+    <!-- Script pour EmailJS -->
+    <script type="text/javascript">
+        (function() {
+            // Initialisation d'EmailJS avec votre User ID
+            emailjs.init("VOTRE_USER_ID_EMAILJS"); // Remplacez par votre User ID EmailJS
+        })();
+    </script>
+
+    <!-- Script pour générer le QR Code -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+
+    <script>
+        // Données du menu
+        const menuData = {
+            entrees: [
+                {
+                    id: 1,
+                    name: "Accras de Morue",
+                    description: "Beignets de morue épicés, servis avec une sauce maison",
+                    price: 3500,
+                    image: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                },
+                {
+                    id: 2,
+                    name: "Salade César Sénégalaise",
+                    description: "Laitue croquante, poulet grillé, croûtons et sauce césar revisitée",
+                    price: 4500,
+                    image: "https://images.unsplash.com/photo-1546793665-c74683f339c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                },
+                {
+                    id: 3,
+                    name: "Boulettes de Viande",
+                    description: "Boulettes de bœuf épicées, sauce tomate maison",
+                    price: 4000,
+                    image: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                }
+            ],
+            plats: [
+                {
+                    id: 4,
+                    name: "Thiébou Dieune",
+                    description: "Riz au poisson, légumes et épices, plat national du Sénégal",
+                    price: 8500,
+                    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                },
+                {
+                    id: 5,
+                    name: "Poulet Yassa",
+                    description: "Poulet mariné au citron et oignons, servi avec du riz blanc",
+                    price: 7500,
+                    image: "https://images.unsplash.com/photo-1556712119-8356a5a5a0d2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                },
+                {
+                    id: 6,
+                    name: "Mafé",
+                    description: "Ragoût de viande ou poisson avec sauce à l'arachide",
+                    price: 8000,
+                    image: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                }
+            ],
+            desserts: [
+                {
+                    id: 7,
+                    name: "Thiakry",
+                    description: "Dessert à base de mil, lait caillé et vanille",
+                    price: 3000,
+                    image: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                },
+                {
+                    id: 8,
+                    name: "Bananes Flambées",
+                    description: "Bananes caramélisées au rhum et vanille, glace vanille",
+                    price: 3500,
+                    image: "https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                },
+                {
+                    id: 9,
+                    name: "Salade de Fruits Frais",
+                    description: "Mélange de fruits de saison du Sénégal",
+                    price: 2500,
+                    image: "https://images.unsplash.com/photo-1564093497595-593b96d80180?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                },
+                {
+                    id: 10,
+                    name: "Gâteau au Chocolat",
+                    description: "Gâteau moelleux au chocolat, sauce caramel",
+                    price: 4000,
+                    image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                }
+            ],
+            boissons: [
+                {
+                    id: 11,
+                    name: "Bissap",
+                    description: "Jus d'hibiscus frais, sucré ou nature",
+                    price: 2000,
+                    image: "https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                },
+                {
+                    id: 12,
+                    name: "Bouye",
+                    description: "Jus de fruit du baobab, riche en vitamines",
+                    price: 2500,
+                    image: "https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                },
+                {
+                    id: 13,
+                    name: "Café Touba",
+                    description: "Café épicé traditionnel sénégalais",
+                    price: 1500,
+                    image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                }
+            ]
+        };
+
+        // Panier
+        let cart = [];
+        let selectedPaymentMethod = null;
+        let currentOrderDetails = null;
+
+        // Fonction pour afficher les éléments du menu
+        function displayMenuItems(category) {
+            const menuContainer = document.getElementById('menu-items-container');
+            menuContainer.innerHTML = '';
+            
+            menuData[category].forEach(item => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'menu-item';
+                menuItem.innerHTML = `
+                    <div class="menu-item-image">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-title">${item.name}</h3>
+                            <span class="menu-item-price">${item.price} FCFA</span>
+                        </div>
+                        <p>${item.description}</p>
+                        <button class="add-to-cart" data-id="${item.id}" data-name="${item.name}" data-price="${item.price}">Ajouter au panier</button>
+                    </div>
+                `;
+                menuContainer.appendChild(menuItem);
+            });
+            
+            // Ajouter les écouteurs d'événements pour les boutons "Ajouter au panier"
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const name = this.getAttribute('data-name');
+                    const price = parseInt(this.getAttribute('data-price'));
+                    
+                    addToCart(id, name, price);
+                });
+            });
+        }
+
+        // Fonction pour ajouter un article au panier
+        function addToCart(id, name, price) {
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: id,
+                    name: name,
+                    price: price,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            showCartNotification();
+        }
+
+        // Fonction pour mettre à jour le panier
+        function updateCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotalElement = document.getElementById('cart-total');
+            const cartCountElement = document.getElementById('cart-count');
+            const orderTotalElement = document.getElementById('order-total');
+            const paymentTotalElement = document.getElementById('payment-total');
+            
+            cartItemsContainer.innerHTML = '';
+            
+            let total = 0;
+            let totalItems = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                totalItems += item.quantity;
+                
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${item.price} FCFA</div>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn decrease" data-id="${item.id}">-</button>
+                            <span class="quantity-value">${item.quantity}</span>
+                            <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                        </div>
+                    </div>
+                    <button class="remove-item" data-id="${item.id}"><i class="fas fa-trash"></i></button>
+                `;
+                cartItemsContainer.appendChild(cartItemElement);
+            });
+            
+            cartTotalElement.textContent = `Total: ${total} FCFA`;
+            cartCountElement.textContent = totalItems;
+            if (orderTotalElement) {
+                orderTotalElement.textContent = `Total: ${total} FCFA`;
+            }
+            if (paymentTotalElement) {
+                paymentTotalElement.textContent = `Total: ${total} FCFA`;
+            }
+            
+            // Mettre à jour le récapitulatif de commande
+            updateOrderSummary();
+            
+            // Ajouter les écouteurs d'événements pour les boutons de quantité et de suppression
+            const decreaseButtons = document.querySelectorAll('.decrease');
+            const increaseButtons = document.querySelectorAll('.increase');
+            const removeButtons = document.querySelectorAll('.remove-item');
+            
+            decreaseButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    decreaseQuantity(id);
+                });
+            });
+            
+            increaseButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    increaseQuantity(id);
+                });
+            });
+            
+            removeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    removeFromCart(id);
+                });
+            });
+        }
+
+        // Fonction pour mettre à jour le récapitulatif de commande
+        function updateOrderSummary() {
+            const orderSummary = document.getElementById('order-summary');
+            const paymentSummary = document.getElementById('payment-summary');
+            orderSummary.innerHTML = '<h4>Récapitulatif de votre commande:</h4>';
+            paymentSummary.innerHTML = '<h4>Récapitulatif de votre commande:</h4>';
+            
+            if (cart.length === 0) {
+                orderSummary.innerHTML += '<p>Votre panier est vide</p>';
+                paymentSummary.innerHTML += '<p>Votre panier est vide</p>';
+                return;
+            }
+            
+            cart.forEach(item => {
+                const orderItem = document.createElement('div');
+                orderItem.className = 'order-item';
+                orderItem.innerHTML = `
+                    <span>${item.name} x ${item.quantity}</span>
+                    <span>${item.price * item.quantity} FCFA</span>
+                `;
+                orderSummary.appendChild(orderItem);
+                paymentSummary.appendChild(orderItem.cloneNode(true));
+            });
+        }
+
+        // Fonction pour diminuer la quantité d'un article
+        function decreaseQuantity(id) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                if (item.quantity > 1) {
+                    item.quantity -= 1;
+                } else {
+                    cart = cart.filter(item => item.id !== id);
+                }
+                updateCart();
+            }
+        }
+
+        // Fonction pour augmenter la quantité d'un article
+        function increaseQuantity(id) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.quantity += 1;
+                updateCart();
+            }
+        }
+
+        // Fonction pour supprimer un article du panier
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCart();
+        }
+
+        // Fonction pour afficher une notification d'ajout au panier
+        function showCartNotification() {
+            const cartIcon = document.getElementById('cart-icon');
+            cartIcon.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                cartIcon.style.transform = 'scale(1)';
+            }, 300);
+        }
+
+        // Fonction pour envoyer une commande par email avec EmailJS
+        function sendOrderByEmail(orderDetails) {
+            const templateParams = {
+                from_name: orderDetails.name,
+                from_phone: orderDetails.phone,
+                order_type: orderDetails.type === 'delivery' ? 'Livraison' : 'À emporter',
+                address: orderDetails.address,
+                order_time: orderDetails.time,
+                order_notes: orderDetails.notes || 'Aucune note',
+                order_items: orderDetails.items.map(item => 
+                    `${item.name} x ${item.quantity} (${item.price * item.quantity} FCFA)`
+                ).join('\n'),
+                order_total: orderDetails.total + ' FCFA',
+                payment_method: orderDetails.paymentMethod,
+                payment_phone: orderDetails.paymentPhone || 'Non spécifié',
+                to_email: 'thiernomamadoudiallodiallo2@gmail.com'
+            };
+
+            emailjs.send('service_your_service_id', 'template_your_template_id', templateParams)
+                .then(function(response) {
+                    console.log('Email envoyé avec succès!', response.status, response.text);
+                }, function(error) {
+                    console.log('Erreur lors de l\'envoi de l\'email:', error);
+                    // En cas d'erreur, on peut afficher un message à l'utilisateur
+                    alert('Il y a eu un problème avec l\'envoi de votre commande par email. Veuillez nous appeler directement au 77 689 03 21.');
+                });
+        }
+
+        // Fonction pour envoyer une commande par WhatsApp
+        function sendOrderByWhatsApp(orderDetails) {
+            const phoneNumber = "776890321";
+            let message = `Nouvelle commande de ${orderDetails.name}%0A`;
+            message += `Téléphone: ${orderDetails.phone}%0A`;
+            message += `Type: ${orderDetails.type === 'delivery' ? 'Livraison' : 'À emporter'}%0A`;
+            
+            if (orderDetails.type === 'delivery') {
+                message += `Adresse: ${orderDetails.address}%0A`;
+            }
+            
+            message += `Heure: ${orderDetails.time}%0A`;
+            message += `%0AArticles commandés:%0A`;
+            
+            orderDetails.items.forEach(item => {
+                message += `- ${item.name} x ${item.quantity} (${item.price * item.quantity} FCFA)%0A`;
+            });
+            
+            message += `%0ATotal: ${orderDetails.total} FCFA%0A`;
+            message += `Méthode de paiement: ${orderDetails.paymentMethod}%0A`;
+            
+            if (orderDetails.paymentPhone) {
+                message += `Téléphone de paiement: ${orderDetails.paymentPhone}%0A`;
+            }
+            
+            if (orderDetails.notes) {
+                message += `Notes: ${orderDetails.notes}%0A`;
+            }
+            
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+        // Fonction pour simuler un paiement
+        function processPayment(orderDetails, paymentMethod, paymentPhone, paymentCode) {
+            // Simulation d'un délai de traitement
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    // Simulation d'une vérification de code (toujours réussie pour la démo)
+                    if (paymentPhone) {
+                        resolve({
+                            success: true,
+                            transactionId: 'TX' + Date.now(),
+                            message: `Paiement de ${orderDetails.total} FCFA réussi via ${paymentMethod}`
+                        });
+                    } else {
+                        reject({
+                            success: false,
+                            message: 'Numéro de téléphone invalide. Veuillez réessayer.'
+                        });
+                    }
+                }, 2000);
+            });
+        }
+
+        // Fonction pour générer un code QR
+        function generateQRCode(canvasId, data) {
+            const qrCodeElement = document.getElementById(canvasId);
+            
+            // Utilisation de la bibliothèque QRCode
+            const qr = qrcode(0, 'M');
+            qr.addData(data);
+            qr.make();
+            
+            // Création d'un canvas pour afficher le QR code
+            const qrCanvas = document.createElement('canvas');
+            const ctx = qrCanvas.getContext('2d');
+            const size = 180;
+            qrCanvas.width = size;
+            qrCanvas.height = size;
+            
+            // Remplir le fond en blanc
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, size, size);
+            
+            // Dessiner les modules du QR code
+            const moduleCount = qr.getModuleCount();
+            const moduleSize = size / moduleCount;
+            
+            ctx.fillStyle = '#000000';
+            for (let row = 0; row < moduleCount; row++) {
+                for (let col = 0; col < moduleCount; col++) {
+                    if (qr.isDark(row, col)) {
+                        ctx.fillRect(
+                            col * moduleSize,
+                            row * moduleSize,
+                            moduleSize,
+                            moduleSize
+                        );
+                    }
+                }
+            }
+            
+            // Remplacer le contenu du conteneur QR code par le canvas
+            qrCodeElement.parentNode.replaceChild(qrCanvas, qrCodeElement);
+        }
+
+        // Fonction pour générer tous les codes QR
+        function generateAllQRCodes() {
+            // Code QR du restaurant
+            const restaurantInfo = `
+THIERNO GOURMAND
+Restaurant à Mbour
+
+NOS SPÉCIALITÉS:
+- Thiébou Dieune
+- Poulet Yassa
+- Mafé
+- Thiakry
+
+MODES DE PAIEMENT:
+- Wave: 77 689 03 21
+- Orange Money: 77 689 03 21
+
+ADRESSE:
+MBOUR1 près du stade Lat Dior
+
+CONTACT:
+77 689 03 21
+thiernomamadoudiallodiallo2@gmail.com
+
+HORAIRES:
+Lundi - Dimanche: 11h00 - 23h00
+            `;
+            generateQRCode('restaurant-qr-code', restaurantInfo);
+            
+            // Code QR pour Wave
+            const wavePaymentInfo = `
+PAIEMENT WAVE
+Thierno Gourmand
+
+Numéro: 77 689 03 21
+Montant: À spécifier
+
+Instructions:
+1. Ouvrez l'application Wave
+2. Allez dans "Envoyer de l'argent"
+3. Saisissez le numéro: 776890321
+4. Entrez le montant de votre commande
+5. Confirmez la transaction
+            `;
+            generateQRCode('wave-qr-code', wavePaymentInfo);
+            generateQRCode('wave-payment-qr', wavePaymentInfo);
+            
+            // Code QR pour Orange Money
+            const orangePaymentInfo = `
+PAIEMENT ORANGE MONEY
+Thierno Gourmand
+
+Numéro: 77 689 03 21
+Montant: À spécifier
+
+Instructions:
+1. Ouvrez l'application Orange Money
+2. Allez dans "Paiement de marchand"
+3. Saisissez le numéro: 776890321
+4. Entrez le montant de votre commande
+5. Confirmez la transaction
+            `;
+            generateQRCode('orange-money-qr-code', orangePaymentInfo);
+            generateQRCode('orange-payment-qr', orangePaymentInfo);
+        }
+
+        // Initialisation au chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Afficher les entrées par défaut
+            displayMenuItems('entrees');
+            
+            // Générer tous les codes QR
+            generateAllQRCodes();
+            
+            // Gestion des catégories de menu
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Retirer la classe active de tous les boutons
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    // Ajouter la classe active au bouton cliqué
+                    this.classList.add('active');
+                    // Afficher les éléments de la catégorie sélectionnée
+                    const category = this.getAttribute('data-category');
+                    displayMenuItems(category);
+                });
+            });
+            
+            // Menu mobile
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('nav ul');
+            
+            menuToggle.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+            });
+            
+            // Fermer le menu mobile en cliquant sur un lien
+            const navLinks = document.querySelectorAll('nav ul li a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navMenu.classList.remove('active');
+                });
+            });
+            
+            // Gestion du formulaire de contact
+            const contactForm = document.getElementById('contact-form');
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Merci pour votre message! Nous vous répondrons dans les plus brefs délais.');
+                contactForm.reset();
+            });
+            
+            // Gestion du panier
+            const cartIcon = document.getElementById('cart-icon');
+            const cartSidebar = document.getElementById('cart-sidebar');
+            const closeCart = document.querySelector('.close-cart');
+            const continueShopping = document.getElementById('continue-shopping');
+            
+            cartIcon.addEventListener('click', function() {
+                cartSidebar.classList.add('active');
+            });
+            
+            closeCart.addEventListener('click', function() {
+                cartSidebar.classList.remove('active');
+            });
+            
+            continueShopping.addEventListener('click', function() {
+                cartSidebar.classList.remove('active');
+            });
+            
+            // Gestion du formulaire de commande
+            const orderForm = document.getElementById('order-form');
+            const proceedToPaymentBtn = document.getElementById('proceed-to-payment');
+            
+            proceedToPaymentBtn.addEventListener('click', function() {
+                if (cart.length === 0) {
+                    alert('Votre panier est vide. Veuillez ajouter des articles avant de passer commande.');
+                    return;
+                }
+                
+                const orderType = document.querySelector('.order-type-btn.active').getAttribute('data-type');
+                const name = document.getElementById('order-name').value;
+                const phone = document.getElementById('order-phone').value;
+                const address = orderType === 'delivery' ? document.getElementById('order-address').value : 'À emporter';
+                const time = document.getElementById('order-time').value;
+                const notes = document.getElementById('order-notes').value;
+                
+                if (!name || !phone || !time) {
+                    alert('Veuillez remplir tous les champs obligatoires.');
+                    return;
+                }
+                
+                // Créer l'objet de commande
+                currentOrderDetails = {
+                    type: orderType,
+                    name: name,
+                    phone: phone,
+                    address: address,
+                    time: time,
+                    notes: notes,
+                    items: [...cart],
+                    total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+                };
+                
+                // Passer au modal de paiement
+                document.getElementById('order-modal').style.display = 'none';
+                document.getElementById('payment-modal').style.display = 'flex';
+                
+                // Réinitialiser la sélection de méthode de paiement
+                selectedPaymentMethod = null;
+                document.querySelectorAll('.payment-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                document.getElementById('confirm-payment-method').disabled = true;
+                
+                // Réinitialiser les étapes de paiement
+                document.getElementById('payment-method-step').classList.add('active');
+                document.getElementById('payment-details-step').classList.remove('active');
+            });
+            
+            // Gestion de la sélection du mode de paiement
+            const paymentOptions = document.querySelectorAll('.payment-option');
+            const confirmPaymentMethodBtn = document.getElementById('confirm-payment-method');
+            
+            paymentOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Désélectionner toutes les options
+                    paymentOptions.forEach(opt => opt.classList.remove('selected'));
+                    // Sélectionner l'option cliquée
+                    this.classList.add('selected');
+                    selectedPaymentMethod = this.getAttribute('data-method');
+                    confirmPaymentMethodBtn.disabled = false;
+                });
+            });
+            
+            // Confirmation du mode de paiement
+            confirmPaymentMethodBtn.addEventListener('click', function() {
+                if (!selectedPaymentMethod) return;
+                
+                // Mettre à jour le titre avec la méthode sélectionnée
+                const methodTitle = selectedPaymentMethod === 'wave' ? 'Wave' : 'Orange Money';
+                document.getElementById('payment-method-title').textContent = `Paiement via ${methodTitle}`;
+                
+                // Passer à l'étape suivante
+                document.getElementById('payment-method-step').classList.remove('active');
+                document.getElementById('payment-details-step').classList.add('active');
+                
+                // Pré-remplir le numéro de téléphone si disponible
+                if (currentOrderDetails && currentOrderDetails.phone) {
+                    document.getElementById('payment-phone').value = currentOrderDetails.phone;
+                }
+            });
+            
+            // Gestion du formulaire de paiement
+            const paymentForm = document.getElementById('payment-form');
+            paymentForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const paymentPhone = document.getElementById('payment-phone').value;
+                const paymentCode = document.getElementById('payment-code').value;
+                
+                if (!paymentPhone) {
+                    alert('Veuillez remplir votre numéro de téléphone.');
+                    return;
+                }
+                
+                // Afficher un indicateur de chargement
+                const confirmPaymentBtn = document.getElementById('confirm-payment');
+                const originalText = confirmPaymentBtn.textContent;
+                confirmPaymentBtn.textContent = 'Traitement en cours...';
+                confirmPaymentBtn.disabled = true;
+                
+                // Simuler le traitement du paiement
+                processPayment(currentOrderDetails, selectedPaymentMethod, paymentPhone, paymentCode)
+                    .then(result => {
+                        // Paiement réussi
+                        currentOrderDetails.paymentMethod = selectedPaymentMethod === 'wave' ? 'Wave' : 'Orange Money';
+                        currentOrderDetails.paymentPhone = paymentPhone;
+                        currentOrderDetails.transactionId = result.transactionId;
+                        
+                        // Envoyer la commande par email
+                        sendOrderByEmail(currentOrderDetails);
+                        
+                        // Envoyer la commande par WhatsApp
+                        sendOrderByWhatsApp(currentOrderDetails);
+                        
+                        // Afficher la confirmation
+                        const confirmationModal = document.getElementById('confirmation-modal');
+                        const confirmationMessage = document.getElementById('confirmation-message');
+                        const paymentConfirmationMessage = document.getElementById('payment-confirmation-message');
+                        
+                        confirmationMessage.textContent = `Merci ${currentOrderDetails.name}! Votre commande a été enregistrée.`;
+                        paymentConfirmationMessage.textContent = result.message;
+                        
+                        confirmationModal.style.display = 'flex';
+                        document.getElementById('payment-modal').style.display = 'none';
+                        
+                        // Réinitialiser le formulaire de paiement
+                        paymentForm.reset();
+                        confirmPaymentBtn.textContent = originalText;
+                        confirmPaymentBtn.disabled = false;
+                    })
+                    .catch(error => {
+                        // Paiement échoué
+                        alert(error.message);
+                        confirmPaymentBtn.textContent = originalText;
+                        confirmPaymentBtn.disabled = false;
+                    });
+            });
+            
+            // Gestion du bouton de commande
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const orderBtn = document.getElementById('order-btn');
+            const heroOrderBtn = document.getElementById('hero-order-btn');
+            const orderModal = document.getElementById('order-modal');
+            const paymentModal = document.getElementById('payment-modal');
+            const closeModal = document.querySelectorAll('.close-modal');
+            const newOrderBtn = document.getElementById('new-order-btn');
+            const confirmationModal = document.getElementById('confirmation-modal');
+            
+            checkoutBtn.addEventListener('click', function() {
+                if (cart.length === 0) {
+                    alert('Votre panier est vide. Veuillez ajouter des articles avant de passer commande.');
+                    return;
+                }
+                cartSidebar.classList.remove('active');
+                orderModal.style.display = 'flex';
+            });
+            
+            orderBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                orderModal.style.display = 'flex';
+            });
+            
+            heroOrderBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                orderModal.style.display = 'flex';
+            });
+            
+            closeModal.forEach(button => {
+                button.addEventListener('click', function() {
+                    orderModal.style.display = 'none';
+                    paymentModal.style.display = 'none';
+                    confirmationModal.style.display = 'none';
+                });
+            });
+            
+            // Fermer les modals en cliquant en dehors
+            window.addEventListener('click', function(e) {
+                if (e.target === orderModal) {
+                    orderModal.style.display = 'none';
+                }
+                if (e.target === paymentModal) {
+                    paymentModal.style.display = 'none';
+                }
+                if (e.target === confirmationModal) {
+                    confirmationModal.style.display = 'none';
+                }
+            });
+            
+            // Bouton pour nouvelle commande
+            newOrderBtn.addEventListener('click', function() {
+                confirmationModal.style.display = 'none';
+                cart = [];
+                updateCart();
+                orderForm.reset();
+            });
+            
+            // Gestion du type de commande (livraison ou à emporter)
+            const orderTypeButtons = document.querySelectorAll('.order-type-btn');
+            const addressField = document.getElementById('address-field');
+            
+            orderTypeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    orderTypeButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    if (this.getAttribute('data-type') === 'delivery') {
+                        addressField.style.display = 'block';
+                    } else {
+                        addressField.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
